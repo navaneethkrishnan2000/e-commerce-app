@@ -4,8 +4,8 @@ services:
     container_name: ms_pg_sql
     image: postgres
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       PG_DATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
