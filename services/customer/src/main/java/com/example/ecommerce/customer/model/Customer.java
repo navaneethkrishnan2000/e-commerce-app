@@ -1,6 +1,6 @@
-package com.example.ecommerce.customer.model.customer;
+package com.example.ecommerce.customer.model;
 
-import com.example.ecommerce.customer.model.Address;
+import com.example.ecommerce.address.Address;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

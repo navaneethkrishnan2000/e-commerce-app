@@ -1,4 +1,4 @@
-package com.example.ecommerce.customer.excpetion.handler;
+package com.example.ecommerce.excpetion.handler;
 
 import java.util.Map;
 

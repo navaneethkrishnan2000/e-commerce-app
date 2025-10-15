@@ -1,6 +1,6 @@
-package com.example.ecommerce.customer.model.customer.dto.response;
+package com.example.ecommerce.customer.model.dto.response;
 
-import com.example.ecommerce.customer.model.Address;
+import com.example.ecommerce.address.Address;
 
 public record CustomerResponse(
         String id,

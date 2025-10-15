@@ -1,9 +1,7 @@
 package com.example.ecommerce.product.service;
 
-import com.example.ecommerce.category.Category;
 import com.example.ecommerce.exception.ProductPurchaseException;
 import com.example.ecommerce.product.mapper.ProductMapper;
-import com.example.ecommerce.product.model.Product;
 import com.example.ecommerce.product.model.dto.request.ProductPurchaseRequest;
 import com.example.ecommerce.product.model.dto.request.ProductRequest;
 import com.example.ecommerce.product.model.dto.response.ProductPurchaseResponse;

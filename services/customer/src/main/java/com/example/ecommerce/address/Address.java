@@ -1,4 +1,4 @@
-package com.example.ecommerce.customer.model;
+package com.example.ecommerce.address;
 
 import lombok.*;
 import org.springframework.validation.annotation.Validated;

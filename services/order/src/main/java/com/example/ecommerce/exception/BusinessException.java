@@ -1,11 +1,11 @@
-package com.example.ecommerce.customer.excpetion;
+package com.example.ecommerce.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CustomerNotFoundException extends RuntimeException {
-
+public class BusinessException extends RuntimeException {
     private final String msg;
 }
+

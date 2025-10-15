@@ -1,6 +1,6 @@
-package com.example.ecommerce.customer.model.customer.dto.request;
+package com.example.ecommerce.customer.model.dto.request;
 
-import com.example.ecommerce.customer.model.Address;
+import com.example.ecommerce.address.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 

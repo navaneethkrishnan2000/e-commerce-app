@@ -5,7 +5,6 @@ import com.example.ecommerce.product.model.Product;
 import com.example.ecommerce.product.model.dto.request.ProductRequest;
 import com.example.ecommerce.product.model.dto.response.ProductPurchaseResponse;
 import com.example.ecommerce.product.model.dto.response.ProductResponse;
-import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 
 @Service

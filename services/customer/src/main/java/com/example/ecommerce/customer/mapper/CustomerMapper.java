@@ -1,8 +1,8 @@
 package com.example.ecommerce.customer.mapper;
 
-import com.example.ecommerce.customer.model.customer.Customer;
-import com.example.ecommerce.customer.model.customer.dto.request.CustomerRequest;
-import com.example.ecommerce.customer.model.customer.dto.response.CustomerResponse;
+import com.example.ecommerce.customer.model.Customer;
+import com.example.ecommerce.customer.model.dto.request.CustomerRequest;
+import com.example.ecommerce.customer.model.dto.response.CustomerResponse;
 import org.springframework.stereotype.Service;
 
 @Service
