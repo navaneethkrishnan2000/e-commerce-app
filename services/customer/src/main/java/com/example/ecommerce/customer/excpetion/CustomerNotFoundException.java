@@ -1,4 +1,4 @@
-package com.example.ecommerce.excpetion;
+package com.example.ecommerce.customer.excpetion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

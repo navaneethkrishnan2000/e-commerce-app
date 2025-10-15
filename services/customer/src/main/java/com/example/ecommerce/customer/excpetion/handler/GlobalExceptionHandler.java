@@ -1,6 +1,6 @@
-package com.example.ecommerce.excpetion.handler;
+package com.example.ecommerce.customer.excpetion.handler;
 
-import com.example.ecommerce.excpetion.CustomerNotFoundException;
+import com.example.ecommerce.customer.excpetion.CustomerNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

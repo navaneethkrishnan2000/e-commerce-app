@@ -1,37 +1,38 @@
 
 services:
-  postgres:
-    container_name: ms_postgres
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PG_DATA: /var/lib/postgresql/data
-      TZ: "Asia/Kolkata"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - microservices-net
-    restart: unless-stopped
 
-  pgadmin:
-    container_name: ms_pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    networks:
-      - microservices-net
-    restart: unless-stopped
+#  postgres:
+#    container_name: ms_postgres
+#    image: postgres:latest
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      PG_DATA: /var/lib/postgresql/data
+#      TZ: "Asia/Kolkata"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
+#
+#  pgadmin:
+#    container_name: ms_pgadmin
+#    image: dpage/pgadmin4
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+#      PGADMIN_CONFIG_SERVER_MODE: 'False'
+#    ports:
+#      - "5050:80"
+#    depends_on:
+#      - postgres
+#    volumes:
+#      - pgadmin_data:/var/lib/pgadmin
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
 
   mongodb:
     container_name: ms_mongo_db

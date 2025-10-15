@@ -2,7 +2,7 @@ package com.example.ecommerce.customer.service.customer;
 
 import com.example.ecommerce.customer.model.customer.Customer;
 import com.example.ecommerce.customer.model.customer.dto.response.CustomerResponse;
-import com.example.ecommerce.excpetion.CustomerNotFoundException;
+import com.example.ecommerce.customer.excpetion.CustomerNotFoundException;
 import com.example.ecommerce.customer.mapper.CustomerMapper;
 import com.example.ecommerce.customer.model.customer.dto.request.CustomerRequest;
 import com.example.ecommerce.customer.repository.CustomerRepository;
