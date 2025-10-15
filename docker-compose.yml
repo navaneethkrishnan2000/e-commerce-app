@@ -1,14 +1,15 @@
 
 services:
   postgres:
-    container_name: ms_pg_sql
-    image: postgres
+    container_name: ms_postgres
+    image: postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PG_DATA: /var/lib/postgresql/data
+      TZ: "Asia/Kolkata"
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -22,10 +23,12 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
     ports:
       - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     networks:
       - microservices-net
     restart: unless-stopped
@@ -35,41 +38,47 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    volumes:
-      - mongo:/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=mgdb
-      - MONGO_INITDB_ROOT_PASSWORD=mgdb
+      MONGO_INITDB_ROOT_USERNAME: mgdb
+      MONGO_INITDB_ROOT_PASSWORD: mgdb
+    volumes:
+      - mongo_data:/data/db
     networks:
       - microservices-net
+    restart: unless-stopped
 
   mongo-express:
     container_name: ms_mongo_express
     image: mongo-express:latest
-    restart: unless-stopped
     ports:
       - "8081:8081"
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=mgdb
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=mgdb
-      - ME_CONFIG_MONGODB_SERVER=mongodb
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mgdb
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mgdb
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    depends_on:
+      - mongodb
     networks:
       - microservices-net
+    restart: unless-stopped
 
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev
     ports:
-      - "1080:1080"
-      - "1025:1025"
+      - "1080:1080"  # Web UI
+      - "1025:1025"  # SMTP server
     networks:
       - microservices-net
+    restart: unless-stopped
 
+# ✅ Define the named volumes here
+volumes:
+  postgres_data:
+  pgadmin_data:
+  mongo_data:
+
+# ✅ Define the shared network
 networks:
   microservices-net:
     driver: bridge
-
-volumes:
-  postgres:
-  pgadmin:
-  mongo:
