@@ -11,6 +11,8 @@ import com.example.ecommerce.order.model.dto.response.OrderResponse;
 import com.example.ecommerce.order.repository.OrderRepository;
 import com.example.ecommerce.orderline.model.dto.request.OrderLineRequest;
 import com.example.ecommerce.orderline.service.IOrderLineService;
+import com.example.ecommerce.payment.client.PaymentClient;
+import com.example.ecommerce.payment.dto.request.PaymentRequest;
 import com.example.ecommerce.product.client.ProductClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,11 @@ import java.util.stream.Collectors;
 public class OrderService implements IOrderService {
 
     private final OrderMapper orderMapper;
+
     private final ProductClient productClient;
+    private final PaymentClient paymentClient;
     private final CustomerClient customerClient;
+
     private final OrderRepository orderRepository;
 
     private final OrderProducer orderProducer;
@@ -55,7 +60,15 @@ public class OrderService implements IOrderService {
             );
         }
 
-        // todo payment
+        // payment
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         // kafka
         orderProducer.sendOrderConfirmation(
