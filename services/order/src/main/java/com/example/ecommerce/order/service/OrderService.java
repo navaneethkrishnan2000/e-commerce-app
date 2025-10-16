@@ -2,22 +2,35 @@ package com.example.ecommerce.order.service;
 
 import com.example.ecommerce.customer.client.CustomerClient;
 import com.example.ecommerce.exception.BusinessException;
+import com.example.ecommerce.kafka.OrderConfirmation;
+import com.example.ecommerce.kafka.OrderProducer;
+import com.example.ecommerce.order.mapper.OrderMapper;
 import com.example.ecommerce.order.model.dto.request.OrderRequest;
+import com.example.ecommerce.order.model.dto.request.PurchaseRequest;
 import com.example.ecommerce.order.model.dto.response.OrderResponse;
 import com.example.ecommerce.order.repository.OrderRepository;
+import com.example.ecommerce.orderline.model.dto.request.OrderLineRequest;
+import com.example.ecommerce.orderline.service.IOrderLineService;
 import com.example.ecommerce.product.client.ProductClient;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService implements IOrderService {
 
+    private final OrderMapper orderMapper;
     private final ProductClient productClient;
     private final CustomerClient customerClient;
     private final OrderRepository orderRepository;
+
+    private final OrderProducer orderProducer;
+
+    private final IOrderLineService orderLineService;
 
     @Override
     public Integer createOrder(OrderRequest request) {
@@ -27,16 +40,47 @@ public class OrderService implements IOrderService {
                 .orElseThrow(() -> new BusinessException("Cannot create order:: No customer exists with the provided ID: " + request.customerId()));
 
         // purchase the products
+        var purchasedProducts = this.productClient.purchaseProducts(request.products());
 
+        var order = this.orderRepository.save(orderMapper.toOrder(request));
+
+        for (PurchaseRequest purchaseRequest : request.products()) {
+            orderLineService.saveOrderLine(
+                    new OrderLineRequest(
+                            null,
+                            order.getId(),
+                            purchaseRequest.productId(),
+                            purchaseRequest.quantity()
+                    )
+            );
+        }
+
+        // todo payment
+
+        // kafka
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        request.reference(),
+                        request.amount(),
+                        request.paymentMethod(),
+                        customer,
+                        purchasedProducts
+                )
+        );
+
+        return order.getId();
     }
 
-    @Override
     public List<OrderResponse> findAllOrders() {
-        return List.of();
+        return this.orderRepository.findAll()
+                .stream()
+                .map(this.orderMapper::fromOrder)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public OrderResponse findById(Integer orderId) {
-        return null;
+    public OrderResponse findById(Integer id) {
+        return this.orderRepository.findById(id)
+                .map(this.orderMapper::fromOrder)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No order found with the provided ID: %d", id)));
     }
 }

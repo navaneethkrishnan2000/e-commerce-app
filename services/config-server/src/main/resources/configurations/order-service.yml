@@ -20,3 +20,12 @@ spring:
       customer-url: http://localhost:8999/api/v1/customers
       product-url: http://localhost:8999/api/v1/products
       payment-url: http://localhost:8999/api/v1/payments
+
+  kafka:
+    producer:
+      bootstrap-servers:
+        - localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:com/example/ecommerce/kafka/OrderConfirmation
