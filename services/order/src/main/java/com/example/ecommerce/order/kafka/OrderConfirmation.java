@@ -1,4 +1,4 @@
-package com.example.ecommerce.kafka;
+package com.example.ecommerce.order.kafka;
 
 import com.example.ecommerce.customer.dto.request.CustomerResponse;
 import com.example.ecommerce.order.model.PaymentMethod;

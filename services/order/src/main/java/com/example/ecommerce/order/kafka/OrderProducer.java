@@ -1,4 +1,4 @@
-package com.example.ecommerce.kafka;
+package com.example.ecommerce.order.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

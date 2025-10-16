@@ -2,8 +2,8 @@ package com.example.ecommerce.order.service;
 
 import com.example.ecommerce.customer.client.CustomerClient;
 import com.example.ecommerce.exception.BusinessException;
-import com.example.ecommerce.kafka.OrderConfirmation;
-import com.example.ecommerce.kafka.OrderProducer;
+import com.example.ecommerce.order.kafka.OrderConfirmation;
+import com.example.ecommerce.order.kafka.OrderProducer;
 import com.example.ecommerce.order.mapper.OrderMapper;
 import com.example.ecommerce.order.model.dto.request.OrderRequest;
 import com.example.ecommerce.order.model.dto.request.PurchaseRequest;
