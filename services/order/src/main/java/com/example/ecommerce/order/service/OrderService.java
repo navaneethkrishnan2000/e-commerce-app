@@ -72,6 +72,7 @@ public class OrderService implements IOrderService {
 
         // kafka
         orderProducer.sendOrderConfirmation(
+
                 new OrderConfirmation(
                         request.reference(),
                         request.amount(),

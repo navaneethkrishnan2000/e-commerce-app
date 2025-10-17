@@ -3,8 +3,8 @@ package com.example.ecommerce.email;
 import lombok.Getter;
 
 public enum EmailTemplate {
-    PAYMENT_CONFIRMATAION("payment-confirmation.html", "Payment successfully processed"),
-    ORDER_CONFIRMATAION("templates/order-confirmation.html", "Order confirmation");
+    PAYMENT_CONFIRMATION("payment-confirmation.html", "Payment successfully processed"),
+    ORDER_CONFIRMATION("order-confirmation.html", "Order confirmation");
 
     @Getter private final String template;
     @Getter private final String subject;

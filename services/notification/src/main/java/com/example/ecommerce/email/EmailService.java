@@ -5,7 +5,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.util.encoders.UTF8;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -18,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -42,7 +40,7 @@ public class EmailService {
                 StandardCharsets.UTF_8.name()
         );
         mimeMessageHelper.setFrom("navaneethkrishnan.dev@gmail.com");
-        final String templateName = EmailTemplate.PAYMENT_CONFIRMATAION.getTemplate();
+        final String templateName = EmailTemplate.PAYMENT_CONFIRMATION.getTemplate();
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("customerName", customerName);
@@ -51,7 +49,7 @@ public class EmailService {
 
         Context context = new Context();
         context.setVariables(variables);
-        mimeMessageHelper.setSubject(EmailTemplate.PAYMENT_CONFIRMATAION.getSubject());
+        mimeMessageHelper.setSubject(EmailTemplate.PAYMENT_CONFIRMATION.getSubject());
 
         try {
             String htmlTemplate = springTemplateEngine.process(templateName, context);
@@ -80,7 +78,7 @@ public class EmailService {
                 StandardCharsets.UTF_8.name()
         );
         mimeMessageHelper.setFrom("navaneethkrishnan.dev@gmail.com");
-        final String templateName = EmailTemplate.ORDER_CONFIRMATAION.getTemplate();
+        final String templateName = EmailTemplate.ORDER_CONFIRMATION.getTemplate();
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("customerName", customerName);
@@ -90,7 +88,7 @@ public class EmailService {
 
         Context context = new Context();
         context.setVariables(variables);
-        mimeMessageHelper.setSubject(EmailTemplate.ORDER_CONFIRMATAION.getSubject());
+        mimeMessageHelper.setSubject(EmailTemplate.ORDER_CONFIRMATION.getSubject());
 
         try {
             String htmlTemplate = springTemplateEngine.process(templateName, context);
