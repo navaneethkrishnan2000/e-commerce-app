@@ -110,12 +110,26 @@ services:
     networks:
       - microservices-net
 
+  keycloak:
+    container_name: keycloak_server
+    image: quay.io/keycloak/keycloak:25.0.1
+    ports:
+      - "8986:8080"
+    command:
+      - "start-dev"
+    environment:
+      # Admin user credentials
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - microservices-net
 
 # ✅ Define the named volumes here
 volumes:
   postgres_data:
   pgadmin_data:
   mongo_data:
+  keycloak_postgres_data:
 
 # ✅ Define the shared network
 networks:
